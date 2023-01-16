@@ -18,23 +18,12 @@ $(function() {
             TimerBaseLink = $('#TimerLink').attr('href');
         }
 
-        // Get the ID of the current ticket
-        var baseURL = location.href.split('index.pl?');
-        var params = baseURL[1].split(';');
-        var TicketID = '';
-        for (index = 0; index < params.length; ++index) {
-            var curParam = params[index].split('=');
-            if (curParam[0] == "TicketID") {
-                TicketID = curParam[1];
-            }
-        }
-
         // Then create the link of the div
         var now = new Date();
         var total_time = round(Math.floor( (now.getTime() - StartTime.getTime() ) /1000 ));
 
-        var NewLink = TimerBaseLink + "TicketID=" + TicketID;
-        NewLink += ";TimerTimeUnits=" + total_time;
+        NewLink = TimerBaseLink;
+        NewLink = NewLink.replace( /TimerTimeUnits=[\d\.]*/g, "TimerTimeUnits=" + total_time );
 
         // And change it before the request is sent
         $('#TimerLink').attr('href', NewLink);
