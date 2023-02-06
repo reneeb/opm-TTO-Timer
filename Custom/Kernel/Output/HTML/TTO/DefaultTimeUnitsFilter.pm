@@ -27,7 +27,8 @@ sub Run {
     my $TimerTimeUnits = $ParamObject->GetParam( Param => "TimerTimeUnits" );
 
     # Get value from timer param or config
-    my $Default_TimeUnits = $TimerTimeUnits || $ConfigObject->Get('TTO::OutputFilter::Config::DefaultTimeUnitsValue') || '15';
+    my $Default_TimeUnits = $TimerTimeUnits || $ConfigObject->Get('TTO::OutputFilter::Config::DefaultTimeUnitsValue');
+    $Default_TimeUnits = '' if !defined $Default_TimeUnits;
 
     # manipulate HTML content
     $LayoutObject->AddJSOnDocumentComplete ( Code => <<"EOF");
